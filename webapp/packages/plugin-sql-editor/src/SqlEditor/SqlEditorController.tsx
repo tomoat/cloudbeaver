@@ -402,10 +402,6 @@ export class SqlEditorController implements IInitializableController {
   private highlightActiveQuery() {
     this.highlightSegment(true);
 
-    if (!this.dialect) {
-      return;
-    }
-
     const query = this.getSubQuery();
 
     if (query) {
