@@ -418,24 +418,23 @@ public class WebSession implements DBASession, DBAAuthCredentialsProvider, IAdap
         this.lastRemoteAddr = request.getRemoteAddr();
         this.lastRemoteUserAgent = request.getHeader("User-Agent");
         this.cacheExpired = false;
-        if (!httpSession.isNew()) {
-            try {
-                // Persist session
-                if (!this.persisted) {
-                    // Create new record
-                    DBWSecurityController.getInstance().createSession(this);
-                    this.persisted = true;
-                } else {
-                    if (!CBApplication.getInstance().isConfigurationMode()) {
-                        // Update record
-                        DBWSecurityController.getInstance().updateSession(this);
-                    }
+        try {
+            // Persist session
+            if (!this.persisted) {
+                // Create new record
+                DBWSecurityController.getInstance().createSession(this);
+                this.persisted = true;
+            } else {
+                if (!CBApplication.getInstance().isConfigurationMode()) {
+                    // Update record
+                    DBWSecurityController.getInstance().updateSession(this);
                 }
-            } catch (Exception e) {
-                addSessionError(e);
-                log.error("Error persisting web session", e);
             }
+        } catch (Exception e) {
+            addSessionError(e);
+            log.error("Error persisting web session", e);
         }
+
         {
             long maxSessionIdleTime = CBApplication.getInstance().getMaxSessionIdleTime();
 

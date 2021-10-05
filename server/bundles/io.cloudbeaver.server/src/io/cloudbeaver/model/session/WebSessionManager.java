@@ -100,13 +100,12 @@ public class WebSessionManager {
 
                     log.debug("> New web session '" + webSession.getSessionId() + "'");
                 }
-            } else {
-                if (updateInfo) {
-                    // Update only once per request
-                    if (!CommonUtils.toBoolean(request.getAttribute("sessionUpdated"))) {
-                        webSession.updateInfo(request, response);
-                        request.setAttribute("sessionUpdated", true);
-                    }
+            }
+            if (updateInfo) {
+                // Update only once per request
+                if (!CommonUtils.toBoolean(httpSession.getAttribute("sessionUpdated"))) {
+                    webSession.updateInfo(request, response);
+                    httpSession.setAttribute("sessionUpdated", true);
                 }
             }
         }

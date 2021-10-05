@@ -61,7 +61,7 @@ public class CBDatabase {
     private static final Log log = Log.getLog(CBDatabase.class);
 
     public static final String SCHEMA_CREATE_SQL_PATH = "db/cb-schema-create.sql";
-    private static final String CURRENT_SCHEMA_VERSION = "1.0";
+    private static final String CURRENT_SCHEMA_VERSION = "1.1";
 
     private static final String DEFAULT_DB_USER_NAME = "cb-data";
     private static final String DEFAULT_DB_PWD_FILE = ".database-credentials.dat";
@@ -210,6 +210,8 @@ public class CBDatabase {
                     // Different beta schema version - recreate schema
                     createDatabaseSchema(connection, false);
                     createDatabaseSchema(connection, true);
+                } else {
+
                 }
             }
         } catch (SQLException e) {

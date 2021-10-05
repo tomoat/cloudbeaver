@@ -647,12 +647,12 @@ class CBSecurityController implements DBWSecurityController {
                 dbStat.setTimestamp(3, currentTS);
                 dbStat.setTimestamp(4, currentTS);
                 if (session.getLastRemoteAddr() != null) {
-                    dbStat.setString(5, session.getLastRemoteAddr());
+                    dbStat.setString(5, CommonUtils.truncateString(session.getLastRemoteAddr(), 64));
                 } else {
                     dbStat.setNull(5, Types.VARCHAR);
                 }
                 if (session.getLastRemoteUserAgent() != null) {
-                    dbStat.setString(6, session.getLastRemoteUserAgent());
+                    dbStat.setString(6, CommonUtils.truncateString(session.getLastRemoteUserAgent(), 500));
                 } else {
                     dbStat.setNull(6, Types.VARCHAR);
                 }
