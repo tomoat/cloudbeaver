@@ -52,6 +52,7 @@ export class DataViewerDataChangeConfirmationService {
           if (editor?.isEdited() && model.source.executionContext?.context) {
             const result = await this.commonDialogService.open(ConfirmationDialog, {
               title: 'data_viewer_result_edited_title',
+              subTitle: model.name || undefined,
               message: 'data_viewer_result_edited_message',
               confirmActionText: 'ui_yes',
               extraStatus: 'no',
