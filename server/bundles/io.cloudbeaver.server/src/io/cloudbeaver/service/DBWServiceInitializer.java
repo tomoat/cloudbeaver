@@ -16,6 +16,7 @@
  */
 package io.cloudbeaver.service;
 
+import io.cloudbeaver.model.app.WebApplication;
 import org.jkiss.dbeaver.DBException;
 import org.jkiss.dbeaver.model.app.DBPApplication;
 
@@ -24,6 +25,6 @@ import org.jkiss.dbeaver.model.app.DBPApplication;
  */
 public interface DBWServiceInitializer extends DBWServiceBinding {
 
-    void initializeService(DBPApplication application) throws DBException;
+    void initializeService(WebApplication application) throws DBException;
 
 }
