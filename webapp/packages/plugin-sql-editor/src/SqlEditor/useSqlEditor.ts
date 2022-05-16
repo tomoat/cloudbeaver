@@ -66,7 +66,7 @@ export function useSqlEditor(state: ISqlEditorTabState): ISQLEditorData {
     },
 
     get activeSegmentMode(): ISQLEditorMode {
-      const contexts =  this.onMode.execute(this);
+      const contexts = this.onMode.execute(this);
       const mode = contexts.getContext(SQLEditorModeContext);
 
       return mode;
@@ -300,7 +300,7 @@ export function useSqlEditor(state: ISqlEditorTabState): ISQLEditorData {
     },
 
     setQuery(query: string): void {
-      this.state.query = query;
+      this.sqlEditorService.setQuery(query, this.state);
       this.parser.setScript(query);
       this.onUpdate.execute();
     },
@@ -331,9 +331,10 @@ export function useSqlEditor(state: ISqlEditorTabState): ISQLEditorData {
     async executeQueryAction<T>(
       segment: ISQLScriptSegment | undefined,
       action: (query: ISQLScriptSegment) => Promise<T>,
-      passEmpty?: boolean
+      passEmpty?: boolean,
+      passDisabled?: boolean
     ): Promise<T | undefined> {
-      if (!segment || this.isDisabled || (!passEmpty && this.isLineScriptEmpty)) {
+      if (!segment || (this.isDisabled && !passDisabled) || (!passEmpty && this.isLineScriptEmpty)) {
         return;
       }
 
